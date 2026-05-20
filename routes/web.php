@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/application', [ApplicationController::class, 'index'])->name('application');
-    Route::get('/applicationCreate', [ApplicationController::class, 'store'])->name('applicationCreate');
-    Route::post('/applicationCreate', [ApplicationController::class, 'create'])->name('applicationCreate');
+    Route::get('/application', [ApplicationController::class, 'index'])->name('application.index');
+    Route::get('/application/create', [ApplicationController::class, 'store'])->name('application.create');
+    Route::post('/application/create', [ApplicationController::class, 'create'])->name('application.create');
+
+    Route::get('/admin/application', [AdminController::class, 'index'])->name('admin.index');
+    Route::patch('/admin/application/update/{id}', [AdminController::class, 'update'])->name('admin.update');
 });
 
 

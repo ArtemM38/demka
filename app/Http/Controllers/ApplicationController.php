@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\CarMark;
+use App\Models\CarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +18,7 @@ class ApplicationController extends Controller
 
     {
         $applications = Application::where('user_id', Auth::id())->get();
-        return view('application', compact('applications'));
+        return view('application.index', compact('applications'));
     }
 
     /**
@@ -24,12 +26,14 @@ class ApplicationController extends Controller
      */
     public function create(Request $request)
     {
-        
+    
+        try{
+            
          $request->validate([
-            'car_mark' => ['required', 'string'],
-            'car_model' => ['required', 'string'],
+            'car_marks_id' => ['required', 'string'],
+            'car_models_id' => ['required', 'string'],
             'address' => ['required', 'string'],
-            'phone' => ['required', 'string', 'max:20'],
+            'phone' => ['required', 'string', 'max:11'],
             'date' => ['required', 'string'],
             'license_series' => ['required', 'string'],
             'license_date' => ['required', 'string'],
@@ -38,16 +42,22 @@ class ApplicationController extends Controller
 
         $application = Application::create([
             'user_id' =>Auth::id(),
-            'car_mark' => $request->car_mark,
-            'car_model' => $request->car_model,
+            'car_marks_id' => $request->car_marks_id,
+            'car_models_id' => $request->car_models_id,
             'phone' => $request->phone,
             'date' => $request->date,
-            'license_series' => $request->license_date,
+            'license_series' => $request->license_series,
             'license_date' => $request->license_date,
             'pay_method' => $request->pay_method,
             'address' => $request->address,
         ]);
-         return redirect('application');
+         return redirect()->route('application.index');
+         }catch(\Exception $e){
+            return response()->json([
+                'status'=>false,
+                'message'=>$e->getMessage(),
+            ]);
+         }
     }
 
     /**
@@ -55,8 +65,9 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {   
-        $applications = Application::get();
-        return view('applicationCreate', compact('applications'));
+        $carmarks = CarMark::get();
+        $carmodels = CarModel::get();
+        return view('application.create', compact('carmarks', 'carmodels'));
     }
 
     /**

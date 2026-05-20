@@ -28,6 +28,14 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'password' => 'poehali',
         ]);
+        User::create([
+            'full_name' => 'Вакуленко Василий Михайлович',
+            'login' => 'vasya',
+            'email' => 'vasya@mail.ru',
+            'phone' => '+7 (914) 775 55 55',
+            'role' => 'user',
+            'password' => 'qawsedrf',
+        ]);
         CarMark::create([
             'car_mark' => 'Toyota',
         ]);

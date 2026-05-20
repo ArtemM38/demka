@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function Applications(){
         return $this->hasMany(Application::class);
     }
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 }
