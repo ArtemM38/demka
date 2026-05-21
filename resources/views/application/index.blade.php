@@ -35,13 +35,12 @@
         </span>
     </div>
 </header>
-
 <body class="bg-indigo-100">
-    <div class="w-3/6 mx-auto">
-        <span class="text-2xl text-purple-300"> Мои заявки:</span> <br>
-        <div class="grid grid-cols-3 gap-4">
+    <div class="w-3/6 mx-auto pt-5">
+        <span class="text-2xl text-indigo-300"> Мои заявки:</span> <br>
+        <div class="grid grid-cols-3 gap-4 mt-5">
             @foreach ($applications as $application)
-            <div class="rounded-lg bg-indigo-200 py-2 px-2 w-auto">
+            <div class="rounded-lg bg-white py-2 px-2 w-auto">
                 Адрес: {{ $application->address }} <br>
                 Номер телефона: {{ $application->phone }} <br>
                 Дата: {{ $application->date }} <br>
@@ -49,7 +48,7 @@
             </div>
             @endforeach
         </div>
-        <button class="bg-[blue-200] text-green-700"><a href="{{ route('application.create') }}">Создать заявку</a></button>
+        <button class="bg-[blue-200] bg-green-700 w-40 h-10  rounded-lg mt-10"><a href="{{ route('application.create') }}">Создать заявку</a></button>
     </div>
 </body>
 

@@ -68,5 +68,4 @@
 
     <button><a href="{{ route('application.index')}}"> Мои заявки</a></button>
 </body>
-
 </html>
