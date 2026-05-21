@@ -8,8 +8,35 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
+<header class="bg-indigo-200 h-16">
+    <div class="flex py-4 text-xl w-3/5 mx-auto">
+        <span class="text-gray-900">Авто2026</span>
 
-<body>
+        <a href="{{ route('application.index') }}" class="text-gray-900 ml-10">Мои заявки</a>
+
+        <span class="flex ml-auto">
+            @if (auth()->user()->isAdmin())
+            <a href="{{ route('admin.index') }}" class="mr-5 text-green-700">Админ-панель</a>
+            @endif
+
+            @if (auth()->user()->isUser())
+            <a href="{{ route('application.create') }}" class="mr-5 text-green-700">Создать заявку</a>
+            @endif
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-dropdown-link :href="route('logout')" class="text-red-500"
+                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                    {{ __('Выйти из аккаунта') }}
+                </x-dropdown-link>
+            </form>
+        </span>
+    </div>
+</header>
+
+<body class="bg-indigo-100">
     <h3> Создание заявки:</h3> <br>
     <form method="POST" action="{{ route('application.create') }}">
         @csrf
@@ -32,9 +59,9 @@
             @endforeach
         </select><br>
         <select name="pay_method">
-            <option value="cash">cash</option>
-            <option value="card">card</option>
-        </select><br> 
+            <option value="cash">Наличные</option>
+            <option value="card">Картой</option>
+        </select><br>
         <input type="checkbox">Я ознакомлен с правилами <br>
         <button type="submit">Отправить</button>
     </form>
